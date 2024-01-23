@@ -15,7 +15,8 @@ chmod +x /usr/local/bin/argocd
 kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2
 sleep 60
 echo "Password: $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)"
-IP_ADDRESS=$(ip -f inet addr show enp0s8 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p')
-echo "IP de Argocd: "$IP_ADDRESS
+#IP_ADDRESS=$(ip -f inet addr show enp0s8 | sed -En -e 's/.*inet ([0-9.]+).*/\1/p')
+#echo "IP de Argocd: "$IP_ADDRESS
 fuser -k 8081/tcp
-kubectl port-forward --address $IP_ADDRESS svc/argocd-server -n argocd 8081:443
+#kubectl port-forward --address $IP_ADDRESS svc/argocd-server -n argocd 8081:443
+kubectl port-forward --address '192.168.33.13' svc/argocd-server -n argocd 8081:443
